@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>TECHNOVATION 2026 | SRKG</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #4f46e5; --primary-dark: #3730a3; --secondary: #06b6d4; --accent: #f59e0b;
+      --dark: #0f172a; --light: #f8fafc; --glass: rgba(255, 255, 255, 0.1);
+      --glass-border: rgba(255, 255, 255, 0.2); --danger: #ef4444; --success: #10b981;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, var(--dark) 0%, #1e1b4b 100%); color: var(--light); min-height: 100vh; overflow-x: hidden; }
+    #mainNav { position: sticky; top: 0; z-index: 1000; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid var(--glass-border); }
+    .nav-container { max-width: 1200px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+    .logo { display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 800; font-size: 1.2rem; }
+    .logo i { color: var(--secondary); } .logo small { color: var(--accent); }
+    #navLinks { list-style: none; display: flex; gap: 20px; align-items: center; }
+    #navLinks a { cursor: pointer; color: var(--light); font-weight: 500; transition: 0.3s; }
+    #navLinks a:hover { color: var(--secondary); }
+    .btn-nav { background: var(--primary); padding: 8px 16px; border-radius: 8px; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 25px; height: 3px; background: var(--light); transition: 0.3s; }
+    .view { display: none; padding: 20px; max-width: 1200px; margin: 0 auto; animation: fadeIn 0.5s; }
+    .view.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .glass { background: var(--glass); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 20px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); }
+    .hero { min-height: 80vh; display: flex; align-items: center; justify-content: center; padding: 40px 0; }
+    .hero-content { padding: 40px; text-align: center; max-width: 800px; }
+    .hero-content h1 { font-size: 3rem; font-weight: 800; margin-bottom: 10px; }
+    .hero-content h1 span { color: var(--secondary); }
+    .subtitle { color: var(--accent); font-weight: 500; margin-bottom: 5px; }
+    .tagline { opacity: 0.8; margin-bottom: 30px; }
+    .btn-primary, .btn-secondary { padding: 12px 25px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; transition: 0.3s; font-size: 1rem; }
+    .btn-primary { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4); }
+    .btn-secondary { background: transparent; border: 1px solid var(--secondary); color: var(--secondary); }
+    .btn-secondary:hover { background: var(--secondary); color: var(--dark); }
+    .btn-block { width: 100%; margin-top: 10px; }
+    .hero-btns { display: flex; gap: 15px; justify-content: center; }
+    .section { padding: 60px 0; }
+    .section-title { text-align: center; font-size: 2rem; margin-bottom: 30px; font-weight: 700; }
+    .section-title span { color: var(--secondary); }
+    .section-desc { text-align: center; max-width: 700px; margin: 0 auto; opacity: 0.8; line-height: 1.6; }
+    .events-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+    .event-card { padding: 25px; transition: 0.3s; }
+    .event-card:hover { transform: translateY(-5px); border-color: var(--secondary); }
+    .event-card h3 { color: var(--accent); margin-bottom: 10px; }
+    .event-card p { opacity: 0.8; margin-bottom: 15px; }
+    .event-card .fee { font-size: 1.2rem; font-weight: 700; color: var(--secondary); margin-bottom: 15px; display: block; }
+    .form-container { max-width: 500px; margin: 40px auto; padding: 40px; }
+    .form-container h2 { text-align: center; margin-bottom: 30px; }
+    .form-container h2 span { color: var(--secondary); }
+    .input-group { position: relative; margin-bottom: 30px; }
+    .input-group input, .input-group select {
+      width: 100%; padding: 10px 0; background: transparent; border: none; border-bottom: 1px solid var(--glass-border);
+      color: var(--light); font-size: 1rem; outline: none;
+    }
+    .input-group select option { background: var(--dark); color: var(--light); }
+    .input-group label { position: absolute; top: 10px; left: 0; pointer-events: none; transition: 0.3s; color: rgba(255,255,255,0.6); }
+    .input-group input:focus + label, .input-group input:valid + label, .input-group select:focus + label, .input-group select:valid + label {
+      top: -15px; font-size: 0.8rem; color: var(--secondary);
+    }
+    .input-group select:invalid { color: rgba(255,255,255,0.6); } 
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    .file-upload { margin: 20px 0; }
+    .file-upload label { display: block; margin-bottom: 10px; color: var(--secondary); }
+    .file-upload input { width: 100%; padding: 10px; background: rgba(0,0,0,0.2); border: 1px dashed var(--glass-border); border-radius: 8px; color: var(--light); }
+    .form-footer { text-align: center; margin-top: 20px; }
+    .form-footer a { color: var(--accent); cursor: pointer; text-decoration: underline; }
+    .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+    .dash-card { padding: 30px; text-align: center; cursor: pointer; transition: 0.3s; }
+    .dash-card:hover { background: rgba(255,255,255,0.15); }
+    .dash-card i { font-size: 2.5rem; color: var(--accent); margin-bottom: 15px; }
+    .regs-list { display: flex; flex-direction: column; gap: 15px; }
+    .reg-item { display: flex; justify-content: space-between; align-items: center; padding: 20px; }
+    .reg-item .status { padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
+    .status-pending { background: rgba(245, 158, 11, 0.2); color: var(--accent); }
+    .status-verified { background: rgba(16, 185, 129, 0.2); color: var(--success); }
+    .status-rejected { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
+    .qr-placeholder { border: 2px dashed var(--glass-border); padding: 40px; text-align: center; margin: 20px 0; border-radius: 12px; }
+    .qr-placeholder i { font-size: 4rem; color: var(--glass-border); }
+    .qr-placeholder p { margin-top: 10px; color: rgba(255,255,255,0.6); }
+    .success-icon { font-size: 4rem; color: var(--success); margin-bottom: 20px; }
+    .receipt-details { text-align: left; background: rgba(0,0,0,0.2); padding: 20px; border-radius: 12px; margin: 20px 0; }
+    .receipt-details p { margin-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px; }
+    .text-center { text-align: center; }
+    .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--dark); padding: 15px 25px; border-radius: 10px; border-left: 4px solid var(--secondary); box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 3000; display: none; }
+    .loader-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 4000; }
+    .spinner { width: 40px; height: 40px; border: 4px solid rgba(255,255,255,0.3); border-top: 4px solid var(--secondary); border-radius: 50%; animation: spin 1s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+      #navLinks { position: absolute; top: 70px; right: 0; background: rgba(15, 23, 42, 0.95); flex-direction: column; width: 100%; padding: 20px; gap: 15px; transform: translateX(100%); transition: 0.3s; }
+      #navLinks.active { transform: translateX(0); }
+      .hero-content h1 { font-size: 2rem; }
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+    @media print { #mainNav, .hero-btns, .btn-primary, .btn-secondary { display: none !important; } body { background: white; color: black; } .glass { border: 1px solid black; background: white; } }
+  </style>
+</head>
+<body>
+
+  <nav id="mainNav">
+    <div class="nav-container">
+      <div class="logo" onclick="navigate('home')">
+        <i class="fas fa-microchip"></i>
+        <span>TECHNOVATION <small>2026</small></span>
+      </div>
+      <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+      <ul id="navLinks">
+        <li><a onclick="navigate('home')">Home</a></li>
+        <li><a onclick="navigate('events')">Events</a></li>
+        <li id="navDashboard" style="display:none;"><a onclick="navigate('dashboard')">Dashboard</a></li>
+        <li id="navLogin"><a onclick="navigate('login')">Login</a></li>
+        <li id="navRegister"><a onclick="navigate('register')" class="btn-nav">Register</a></li>
+        <li id="navLogout" style="display:none;"><a onclick="logout()">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div id="app">
+    
+    <div id="view-home" class="view active">
+      <section class="hero">
+        <div class="hero-content glass">
+          <h1>TECHNOVATION <span>2026</span></h1>
+          <p class="subtitle">Shri Rama Krishna College of Engineering Science and Management</p>
+          <p class="tagline">3 Days • Food Fest • Projects • Games • Cultural</p>
+          <!-- Countdown Removed from here -->
+          <div class="hero-btns">
+            <button class="btn-primary" onclick="navigate('register')">Register Now</button>
+            <button class="btn-secondary" onclick="navigate('login')">Student Login</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">About <span>Technovation</span></h2>
+        <p class="section-desc">TECHNOVATION is SRKG's flagship 3-day annual event. A fusion of technology, creativity, and culture. Day 1 kicks off with a gastronomic Food Fest and innovative Project Exhibition. Day 2 brings the heat with competitive Gaming. Day 3 closes with a spectacular Cultural Fest.</p>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">3-Day <span>Events</span></h2>
+        <div class="events-grid" id="eventsGridHome"></div>
+      </section>
+    </div>
+
+    <!-- New Events Page View Added Here -->
+    <div id="view-events" class="view">
+      <section class="section">
+        <h2 class="section-title">All <span>Events</span></h2>
+        <div class="events-grid" id="eventsGridAll"></div>
+      </section>
+    </div>
+
+    <div id="view-register" class="view">
+      <div class="form-container glass">
+        <h2>Student <span>Registration</span></h2>
+        <form id="regForm" onsubmit="handleRegister(event)">
+          <div class="input-group"><input type="text" id="r_name" required><label>Full Name</label></div>
+          <div class="input-group"><input type="tel" id="r_mobile" pattern="[0-9]{10}" required><label>Mobile Number</label></div>
+          <div class="input-group"><input type="email" id="r_email" required><label>Email</label></div>
+          <div class="input-group"><input type="text" id="r_college" required><label>College / Institution</label></div>
+          <div class="grid-2">
+            <div class="input-group">
+              <select id="r_course" required>
+                <option value="" disabled selected hidden></option>
+                <option value="B.Tech">B.Tech</option>
+                <option value="M.Tech">M.Tech</option>
+                <option value="Polytechnic">Polytechnic</option>
+                <option value="B.Pharm">B.Pharm</option>
+                <option value="M.Pharm">M.Pharm</option>
+                <option value="Management">Management</option>
+              </select>
+              <label>Course</label>
+            </div>
+            <div class="input-group">
+              <select id="r_branch" required>
+                <option value="" disabled selected hidden></option>
+                <option value="CS">CS</option>
+                <option value="AI/ML">AI/ML</option>
+                <option value="Mechanical">Mechanical</option>
+                <option value="Electrical">Electrical</option>
+                <option value="Other">Other</option>
+              </select>
+              <label>Branch</label>
+            </div>
+          </div>
+          <div class="input-group"><input type="text" id="r_year" required><label>Year / Semester</label></div>
+          <div class="input-group"><input type="password" id="r_pass" required><label>Password</label></div>
+          <div class="input-group"><input type="password" id="r_cpass" required><label>Confirm Password</label></div>
+          <button type="submit" class="btn-primary btn-block">Register</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="view-login" class="view">
+      <div class="form-container glass">
+        <h2>Student <span>Login</span></h2>
+        <form id="loginForm" onsubmit="handleLogin(event)">
+          <div class="input-group"><input type="text" id="l_loginid" required><label>Login ID</label></div>
+          <div class="input-group"><input type="password" id="l_pass" required><label>Password</label></div>
+          <button type="submit" class="btn-primary btn-block">Login</button>
+        </form>
+        <p class="form-footer">Don't have an account? <a onclick="navigate('register')">Register here</a></p>
+      </div>
+    </div>
+
+    <div id="view-dashboard" class="view">
+      <div class="dashboard-grid">
+        <div class="dash-card glass" onclick="navigate('events')">
+          <i class="fas fa-calendar-plus"></i><h3>Available Events</h3>
+        </div>
+        <div class="dash-card glass" onclick="navigate('myregs')">
+          <i class="fas fa-ticket-alt"></i><h3>My Registrations</h3>
+        </div>
+        <div class="dash-card glass">
+          <i class="fas fa-user-circle"></i><h3>My Profile</h3>
+        </div>
+      </div>
+      <h2 class="section-title" style="text-align:left; margin-top:40px;">Welcome, <span id="dashName">Student</span></h2>
+    </div>
+
+    <div id="view-myregs" class="view">
+      <h2 class="section-title">My <span>Registrations</span></h2>
+      <div id="myRegsList" class="regs-list"></div>
+    </div>
+
+    <div id="view-event-register" class="view">
+      <div class="form-container glass">
+        <h2 id="evRegTitle">Register for <span>Event</span></h2>
+        <div id="eventSpecificFields"></div>
+        <button onclick="initiatePayment()" class="btn-primary btn-block">Proceed to Payment</button>
+      </div>
+    </div>
+
+    <div id="view-payment" class="view">
+      <div class="form-container glass">
+        <h2>Payment <span>Verification</span></h2>
+        <p class="text-center">Registration Amount: ₹<span id="payAmount">0</span></p>
+        <div class="qr-placeholder">
+          <i class="fas fa-qrcode"></i>
+          <p>Payment QR Coming Soon</p>
+        </div>
+        <p class="text-center" style="margin: 15px 0;">Upload your payment screenshot and enter UTR ID.</p>
+        <form id="payForm" onsubmit="handlePayment(event)">
+          <div class="input-group"><input type="text" id="p_utr" required><label>UTR / Transaction ID</label></div>
+          <div class="file-upload">
+            <label for="p_screenshot">Upload Screenshot (JPG/PNG)</label>
+            <input type="file" id="p_screenshot" accept="image/png, image/jpeg" required>
+          </div>
+          <button type="submit" class="btn-primary btn-block">Submit Registration</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="view-confirmation" class="view">
+      <div class="form-container glass text-center">
+        <i class="fas fa-check-circle success-icon"></i>
+        <h2>Registration Successful 🎉</h2>
+        <div id="confDetails" class="receipt-details"></div>
+        <button onclick="window.print()" class="btn-secondary btn-block">Print Receipt</button>
+        <button onclick="navigate('dashboard')" class="btn-primary btn-block" style="margin-top:10px;">Back to Dashboard</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <div id="loader" class="loader-overlay"><div class="spinner"></div></div>
+
+  <script>
+    let appState = {
+      token: localStorage.getItem('tech_token') || null,
+      user: JSON.parse(localStorage.getItem('tech_user') || 'null'),
+      selectedEvent: null, currentRegId: null, currentFee: 0
+    };
+
+    // Aapka URL yahan set kar diya gaya hai
+    const API_URL = 'https://script.google.com/macros/s/AKfycbxE3ju1oUYbyFAcctfQgMH_6AG-7FW7eIgHRL_tEvo00mpmXLqWNeJQ0hgTWTuR1ZPg4w/exec'; 
+
+    function navigate(viewName) {
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+      const view = document.getElementById('view-' + viewName);
+      if(view) view.classList.add('active');
+      window.scrollTo(0, 0);
+      if (viewName === 'home' || viewName === 'events') loadEvents();
+      if (viewName === 'dashboard') updateDashboard();
+      if (viewName === 'myregs') loadMyRegistrations();
+    }
+
+    async function apiCall(action, payload = {}) {
+      showLoader(true);
+      try {
+        const res = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // CORS Fix
+          body: JSON.stringify({ action: action, payload: payload })
+        });
+        const data = await res.json();
+        return data;
+      } catch (e) {
+        showToast('Network Error: ' + e.message, 'error');
+        return { success: false, message: e.message };
+      } finally {
+        showLoader(false);
+      }
+    }
+
+    async function handleRegister(e) {
+      e.preventDefault();
+      const pass = document.getElementById('r_pass').value;
+      const cpass = document.getElementById('r_cpass').value;
+      if (pass !== cpass) return showToast('Passwords do not match', 'error');
+      
+      const payload = {
+        name: document.getElementById('r_name').value, 
+        mobile: document.getElementById('r_mobile').value, 
+        email: document.getElementById('r_email').value,
+        college: document.getElementById('r_college').value, 
+        course: document.getElementById('r_course').value, 
+        branch: document.getElementById('r_branch').value,
+        year: document.getElementById('r_year').value, 
+        password: pass
+      };
+      
+      const res = await apiCall('registerStudent', payload);
+      if (res.success) {
+        showToast('Success! Your Login ID is ' + res.data.loginId);
+        setTimeout(() => navigate('login'), 3000);
+      } else {
+        showToast(res.message, 'error');
+      }
+    }
+
+    async function handleLogin(e) {
+      e.preventDefault();
+      const res = await apiCall('loginStudent', { 
+        loginId: document.getElementById('l_loginid').value, 
+        password: document.getElementById('l_pass').value 
+      });
+      if (res.success) {
+        appState.token = res.data.token;
+        appState.user = res.data.student;
+        localStorage.setItem('tech_token', appState.token);
+        localStorage.setItem('tech_user', JSON.stringify(appState.user));
+        updateNavAuthState();
+        navigate('dashboard');
+      } else {
+        showToast(res.message, 'error');
+      }
+    }
+
+    function logout() {
+      appState = { token: null, user: null, selectedEvent: null, currentRegId: null, currentFee: 0 };
+      localStorage.removeItem('tech_token');
+      localStorage.removeItem('tech_user');
+      updateNavAuthState();
+      navigate('home');
+    }
+
+    function updateNavAuthState() {
+      if (appState.token) {
+        document.getElementById('navLogin').style.display = 'none';
+        document.getElementById('navRegister').style.display = 'none';
+        document.getElementById('navDashboard').style.display = 'block';
+        document.getElementById('navLogout').style.display = 'block';
+        if(document.getElementById('dashName')) document.getElementById('dashName').innerText = appState.user.name;
+      } else {
+        document.getElementById('navLogin').style.display = 'block';
+        document.getElementById('navRegister').style.display = 'block';
+        document.getElementById('navDashboard').style.display = 'none';
+        document.getElementById('navLogout').style.display = 'none';
+      }
+    }
+
+    function updateDashboard() {
+      if (!appState.token) return navigate('login');
+      document.getElementById('dashName').innerText = appState.user.name;
+    }
+
+    // Modified to load events on both Home and Events page
+    async function loadEvents() {
+      const res = await apiCall('getEvents');
+      if (res.success) {
+        let cardsHtml = '';
+        res.data.forEach(ev => {
+          cardsHtml += `
+            <div class="event-card glass">
+              <h3>${ev.name}</h3>
+              <p>${ev.desc}</p>
+              <span class="fee">₹${ev.fee}</span>
+              <button class="btn-primary btn-block" onclick="selectEvent('${ev.id}', '${ev.name}', ${ev.fee})">Register</button>
+            </div>
+          `;
+        });
+        if(document.getElementById('eventsGridHome')) document.getElementById('eventsGridHome').innerHTML = cardsHtml;
+        if(document.getElementById('eventsGridAll')) document.getElementById('eventsGridAll').innerHTML = cardsHtml;
+      }
+    }
+
+    function selectEvent(id, name, fee) {
+      if (!appState.token) {
+        showToast('Please login to register for events', 'error');
+        return navigate('login');
+      }
+      appState.selectedEvent = { id, name, fee };
+      appState.currentFee = fee;
+      
+      let fieldsHtml = '';
+      if (id === 'PROJ01') {
+        fieldsHtml = `
+          <div class="input-group"><input type="text" id="d_projectTitle" required><label>Project Title</label></div>
+          <div class="input-group"><input type="text" id="d_projectDesc" required><label>Project Description</label></div>
+          <div class="input-group"><input type="text" id="d_teamName" required><label>Team Name</label></div>
+          <div class="input-group"><input type="text" id="d_teamMembers" required><label>Team Members (Comma separated)</label></div>
+        `;
+      } else if (id === 'GAME01') {
+        fieldsHtml = `
+          <div class="input-group"><input type="text" id="d_gameName" required><label>Game Name</label></div>
+          <div class="input-group"><input type="text" id="d_participationType" required><label>Participation Type (Individual/Team)</label></div>
+          <div class="input-group"><input type="text" id="d_teamMembers"><label>Team Members (if team)</label></div>
+        `;
+      } else if (id === 'CULT01') {
+        fieldsHtml = `
+          <div class="input-group"><input type="text" id="d_performanceType" required><label>Performance Type</label></div>
+          <div class="input-group"><input type="text" id="d_teamName" required><label>Team Name</label></div>
+          <div class="input-group"><input type="text" id="d_teamMembers" required><label>Team Members</label></div>
+        `;
+      }
+      
+      document.getElementById('eventSpecificFields').innerHTML = fieldsHtml;
+      document.getElementById('evRegTitle').innerHTML = `Register for <span>${name}</span>`;
+      navigate('event-register');
+    }
+
+    async function initiatePayment() {
+      if (!appState.selectedEvent) return;
+      
+      let details = {};
+      const evId = appState.selectedEvent.id;
+      if (evId === 'PROJ01') {
+        details = { projectTitle: document.getElementById('d_projectTitle').value, projectDesc: document.getElementById('d_projectDesc').value, teamName: document.getElementById('d_teamName').value, teamMembers: document.getElementById('d_teamMembers').value };
+      } else if (evId === 'GAME01') {
+        details = { gameName: document.getElementById('d_gameName').value, participationType: document.getElementById('d_participationType').value, teamMembers: document.getElementById('d_teamMembers').value };
+      } else if (evId === 'CULT01') {
+        details = { performanceType: document.getElementById('d_performanceType').value, teamName: document.getElementById('d_teamName').value, teamMembers: document.getElementById('d_teamMembers').value };
+      }
+      
+      const res = await apiCall('registerForEvent', {
+        token: appState.token,
+        eventId: evId,
+        eventName: appState.selectedEvent.name,
+        details: details
+      });
+      
+      if (res.success) {
+        appState.currentRegId = res.data.registrationId;
+        document.getElementById('payAmount').innerText = res.data.fee;
+        navigate('payment');
+      } else {
+        showToast(res.message, 'error');
+      }
+    }
+
+    async function handlePayment(e) {
+      e.preventDefault();
+      if (!appState.currentRegId) return;
+      
+      await apiCall('savePaymentDetails', { token: appState.token, regId: appState.currentRegId, utr: document.getElementById('p_utr').value });
+      
+      const file = document.getElementById('p_screenshot').files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = async function(evt) {
+          const base64Data = evt.target.result.split(',')[1];
+          const res = await apiCall('uploadPaymentScreenshot', {
+            token: appState.token,
+            regId: appState.currentRegId,
+            base64Data: base64Data,
+            fileName: file.name
+          });
+          
+          if (res.success) {
+            document.getElementById('confDetails').innerHTML = `
+              <p><strong>Name:</strong> ${appState.user.name}</p>
+              <p><strong>Registration ID:</strong> ${appState.currentRegId}</p>
+              <p><strong>Event:</strong> ${appState.selectedEvent.name}</p>
+              <p><strong>Amount:</strong> ₹${appState.currentFee}</p>
+              <p><strong>Payment Status:</strong> Pending Verification</p>
+              <p><strong>Date:</strong> ${new Date().toLocaleString()}</p>
+            `;
+            navigate('confirmation');
+          } else {
+            showToast(res.message, 'error');
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    async function loadMyRegistrations() {
+      if (!appState.token) return navigate('login');
+      const res = await apiCall('getMyRegistrations', { token: appState.token });
+      
+      const list = document.getElementById('myRegsList');
+      if (res.data.length === 0) {
+        list.innerHTML = '<p class="text-center">No registrations yet.</p>';
+        return;
+      }
+      
+      list.innerHTML = '';
+      res.data.forEach(reg => {
+        let statusClass = 'status-pending';
+        if (reg.status === 'Verified') statusClass = 'status-verified';
+        if (reg.status === 'Rejected') statusClass = 'status-rejected';
+        
+        list.innerHTML += `
+          <div class="reg-item glass">
+            <div>
+              <h4>${reg.eventName}</h4>
+              <small>${reg.regId}</small>
+            </div>
+            <div>
+              <span class="status ${statusClass}">${reg.status}</span>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function showToast(msg, type = 'success') {
+      const toast = document.getElementById('toast');
+      toast.innerText = msg;
+      toast.style.display = 'block';
+      toast.style.borderColor = type === 'error' ? '#ef4444' : '#06b6d4';
+      setTimeout(() => { toast.style.display = 'none'; }, 4000);
+    }
+
+    function showLoader(show) {
+      document.getElementById('loader').style.display = show ? 'flex' : 'none';
+    }
+
+    document.getElementById('hamburger').addEventListener('click', () => {
+      document.getElementById('navLinks').classList.toggle('active');
+    });
+
+    // Countdown Code Removed Completely
+
+    updateNavAuthState();
+    loadEvents();
+  </script>
+</body>
+</html>
